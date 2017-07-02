@@ -1,0 +1,38 @@
+spring:
+  jpa: 
+    show-sql: false
+    open-in-view: true
+    database: POSTGRESQL
+    properties:
+      hibernate.format_sql: false
+    
+  datasource:
+      tomcat:
+        name: datasource
+        max-idle: 3
+        max-active: 5
+        max-wait: 1000
+        jmx-enabled: true
+        username: esycation
+        password: esycation
+        test-on-borrow: true
+        test-on-return: false
+        test-while-idle: true
+        validation-query: SELECT 1
+        remove-abandoned-timeout: 60
+        remove-abandoned: false
+        log-abandoned: true
+        time-between-eviction-runs-millis: 30000
+        min-evictable-idle-time-millis: 30000
+        jdbc-interceptors:  org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/esycation_hostel
+        
+        
+logging:
+  level:
+    com.webientsoft.esycation: INFO
+    org.springframework: INFO
+    file:  ${log-file-location:/opt/log/esycation}/hostel.log
+  pattern:
+    file: '%d{dd-MMM-yyyy HH:mm:ss} %5p %c{1}:%L - %m%n'

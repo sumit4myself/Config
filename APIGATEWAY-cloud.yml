@@ -1,0 +1,28 @@
+ribbon:
+  eureka:
+    enabled: true
+  # Maximum time(MS) to get response form service
+  connect-timeout: 10000 
+  # Maximum time(MS) to get service instance connection
+  read-timeout: 10000 
+  # Max number of retries on the same server (excluding the first try)
+  MaxAutoRetries: 1 
+  # Max number of next servers to retry (excluding the first server)
+  MaxAutoRetriesNextServer : 1
+  # Enable/Disable Retry for all the services
+  OkToRetryOnAllOperations : false
+  # Maximum Http conncetion per host
+  MaxHttpConnectionsPerHost: 200
+  # Maximum Http conncetions with other services
+  MaxTotalHttpConnections: 1000
+  
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000   
+
+
+logging:
+  level:
+    com.webientsoft.esycation: INFO
+    org.springframework: INFO
+  file:  ${log-file-location:/opt/log/esycation}/api.log
+  pattern:
+    file: '%d{dd-MMM-yyyy HH:mm:ss} %5p %c{1}:%L - %m%n'

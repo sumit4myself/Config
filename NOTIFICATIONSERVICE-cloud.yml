@@ -1,0 +1,79 @@
+spring:
+  jpa: 
+    show-sql: false
+    open-in-view: true
+    database: POSTGRESQL
+    properties:
+      hibernate.format_sql: false
+    
+  datasource:
+      tomcat:
+        name: datasource
+        max-idle: 3
+        max-active: 5
+        max-wait: 1000
+        jmx-enabled: true
+        username: esycation
+        password: esycation
+        test-on-borrow: true
+        test-on-return: false
+        test-while-idle: true
+        validation-query: SELECT 1
+        remove-abandoned-timeout: 60
+        remove-abandoned: false
+        log-abandoned: true
+        time-between-eviction-runs-millis: 30000
+        min-evictable-idle-time-millis: 30000
+        jdbc-interceptors:  org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/esycation_notification
+
+logging:
+  level:
+    com.webientsoft.esycation: INFO
+    org.springframework: INFO
+  file:  ${log-file-location:/opt/log/esycation}/notification.log
+  pattern:
+    file: '%d{dd-MMM-yyyy HH:mm:ss} %5p %c{1}:%L - %m%n'
+    
+notification:
+  scheduler:
+    retry:
+      chunk-size: 10
+      cron: 0 0/5 * * * *
+      max: 2
+    sender:
+      chunk-size: 10
+      cron: 0 0/1 * * * *
+  sms:
+    executor:
+      poolSize: 10
+      maxPoolSize: 100
+      queueCapacity: 100
+    url: http://api-alerts.solutionsinfini.com/v4/?method=sms.json&api_key=A1acebfc3751202781090b075f3f82249
+    method: POST
+    message-param-name: message
+    number-param-name: to
+    params:
+      sender: EDUCOR
+  email:
+    sender: educoresystems.in@gmail.com
+    protocol: smtp
+    host: smtp.gmail.com
+    port: 587
+    username: educoresystems.in@gmail.com
+    password: Educore$ystems@123
+    test-connection: false
+    properties:
+      mail.smtp.starttls.enable: true
+      mail.smtp.auth: true
+      mail.debug: false
+    executor:
+      poolSize: 10
+      maxPoolSize: 100
+      queueCapacity: 100
+  push-message:
+    executor:
+      poolSize: 10
+      maxPoolSize: 100
+      queueCapacity: 100
